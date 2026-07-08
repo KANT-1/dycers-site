@@ -4,24 +4,41 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dycers — Turn free bets and odds into profit</title>
-  <meta name="description" content="Dycers is the smart companion for sports bettors: a free-bet optimizer, real-time arbitrage radar, live bet tracking and a full performance dashboard. Free on iOS and Android.">
+  <meta name="description" content="Dycers is the smart companion for sports bettors: a real-time arbitrage radar, a free-bet optimizer, live bet tracking and a full performance dashboard. Free on iOS and Android.">
   <meta name="theme-color" content="#08080a">
+  <meta name="apple-itunes-app" content="app-id=6773751232">
   <link rel="canonical" href="https://www.dycers.com/">
 
   <!-- Social sharing -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Dycers">
   <meta property="og:title" content="Dycers — Turn free bets and odds into profit">
-  <meta property="og:description" content="Free-bet optimizer, arbitrage radar, live bet tracking and a full stats dashboard. Free on iOS and Android.">
+  <meta property="og:description" content="Real-time arbitrage radar, free-bet optimizer, live bet tracking and a full stats dashboard. Free on iOS and Android.">
   <meta property="og:url" content="https://www.dycers.com/">
   <meta property="og:image" content="https://www.dycers.com/assets/logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Dycers — Turn free bets and odds into profit">
-  <meta name="twitter:description" content="Free-bet optimizer, arbitrage radar, live bet tracking and a full stats dashboard.">
+  <meta name="twitter:description" content="Real-time arbitrage radar, free-bet optimizer, live bet tracking and a full stats dashboard.">
   <meta name="twitter:image" content="https://www.dycers.com/assets/logo.png">
 
   <link rel="icon" type="image/png" href="/assets/logo.png">
   <link rel="apple-touch-icon" href="/assets/logo.png">
+  <link rel="preload" as="image" href="/assets/screens/radar.jpg" fetchpriority="high">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "Dycers",
+    "operatingSystem": "iOS, Android",
+    "applicationCategory": "SportsApplication",
+    "url": "https://www.dycers.com/",
+    "image": "https://www.dycers.com/assets/logo.png",
+    "description": "Real-time arbitrage radar, free-bet optimizer, live bet tracking and a full stats dashboard for sports bettors.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "publisher": { "@type": "Organization", "name": "LF Digital Ventures" }
+  }
+  </script>
 
   <style>
     :root{
@@ -39,6 +56,7 @@
       --green:#22d17a;
       --radius:20px;
       --maxw:1160px;
+      --shot-ar:777/1600;
       --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     }
     *{box-sizing:border-box;margin:0;padding:0}
@@ -54,7 +72,10 @@
     }
     a{color:inherit;text-decoration:none}
     img{display:block;max-width:100%}
+    ::selection{background:rgba(255,37,48,.35)}
+    :focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:6px}
     .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px}
+    section[id],div[id]{scroll-margin-top:84px}
 
     /* ---------- ambient background ---------- */
     .glow{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
@@ -125,8 +146,7 @@
       background:linear-gradient(160deg,#26262e,#111116);
       box-shadow:0 40px 90px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.06);
     }
-    .phone::after{content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);width:96px;height:22px;background:#000;border-radius:0 0 14px 14px;z-index:3}
-    .phone img{width:100%;border-radius:30px;display:block}
+    .phone img{width:100%;height:auto;aspect-ratio:var(--shot-ar);object-fit:cover;border-radius:30px;display:block}
     .hero-visual .halo{position:absolute;inset:-8% -14% -14% -14%;background:radial-gradient(circle at 50% 40%,rgba(255,37,48,.35),transparent 62%);filter:blur(30px);z-index:-1}
     .float-tag{
       position:absolute;background:rgba(18,18,24,.9);border:1px solid var(--border-strong);
@@ -136,6 +156,7 @@
     .float-tag .k{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.03em}
     .float-tag .v{font-weight:700;font-size:16px}
     .float-tag.green .v{color:var(--green)}
+    .float-tag.red .v{color:var(--red)}
     .ft-1{top:64px;left:-26px}
     .ft-2{bottom:96px;right:-30px}
     @media(max-width:920px){
@@ -197,7 +218,14 @@
     .rail::-webkit-scrollbar{height:8px}
     .rail::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:999px}
     .rail .shot{flex:0 0 auto;width:216px;scroll-snap-align:center}
-    .rail .shot img{width:100%;border-radius:24px;border:1px solid var(--border);box-shadow:0 24px 50px -24px rgba(0,0,0,.8)}
+    .rail .shot .shot-frame{
+      border-radius:26px;padding:7px;
+      background:linear-gradient(160deg,#26262e,#111116);
+      box-shadow:0 24px 50px -24px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.06);
+      transition:transform .25s ease,box-shadow .25s ease;
+    }
+    .rail .shot:hover .shot-frame{transform:translateY(-6px);box-shadow:0 34px 60px -24px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.1)}
+    .rail .shot img{width:100%;height:auto;aspect-ratio:var(--shot-ar);object-fit:cover;border-radius:20px}
     .rail .shot span{display:block;text-align:center;color:var(--muted);font-size:13px;margin-top:14px;font-weight:500}
 
     /* ---------- final cta ---------- */
@@ -237,7 +265,7 @@
   <header class="nav">
     <div class="wrap nav-inner">
       <a href="#top" class="brand">
-        <img src="/assets/logo.png" alt="Dycers logo">
+        <img src="/assets/logo.png" alt="Dycers logo" width="34" height="34">
         Dycers
       </a>
       <nav class="nav-links">
@@ -257,7 +285,7 @@
       <div class="hero-copy">
         <span class="eyebrow">The bettor's edge</span>
         <h1>Stop guessing.<br><span class="accent">Start profiting.</span></h1>
-        <p class="lead">Dycers turns your free bets and bookmaker odds into an edge — a smart free-bet optimizer, a real-time arbitrage radar, live bet tracking and a full performance dashboard. All in one app.</p>
+        <p class="lead">Dycers turns bookmaker odds and free bets into an edge — a real-time arbitrage radar, a smart free-bet optimizer, live bet tracking and a full performance dashboard. All in one app.</p>
 
         <div class="badges" id="download">
           <a class="store" href="https://apps.apple.com/fr/app/dycers/id6773751232?l=en-GB" target="_blank" rel="noopener">
@@ -279,16 +307,16 @@
 
       <div class="hero-visual">
         <div class="halo"></div>
-        <div class="float-tag green ft-1">
-          <div class="k">EXPECTED VALUE</div>
-          <div class="v">+9.38 €</div>
-        </div>
-        <div class="float-tag ft-2">
+        <div class="float-tag red ft-1">
           <div class="k">ARBITRAGE MARGIN</div>
           <div class="v">0.3%</div>
         </div>
+        <div class="float-tag green ft-2">
+          <div class="k">MATCHES ON RADAR</div>
+          <div class="v">49</div>
+        </div>
         <div class="phone">
-          <img src="/assets/screens/freebets.jpg" alt="Dycers free-bet optimizer: choose bookmakers and stake, then find the best bet" width="252" height="516">
+          <img src="/assets/screens/radar.jpg" alt="Dycers arbitrage radar: live margins across bookmakers, sorted tightest first" width="777" height="1600" fetchpriority="high">
         </div>
       </div>
     </div>
@@ -299,11 +327,11 @@
     <div class="wrap">
       <span class="lbl">Works across your bookmakers</span>
       <span class="book">1xBet</span>
+      <span class="book">Winamax</span>
       <span class="book">Unibet</span>
       <span class="book">PMU</span>
       <span class="book">Betfair</span>
       <span class="book">Betsson</span>
-      <span class="book">Coolbet</span>
       <span class="book">+ more</span>
     </div>
   </div>
@@ -317,28 +345,10 @@
         <p>Everything a sharp bettor needs to squeeze value out of every offer, every match and every odds movement.</p>
       </div>
 
-      <!-- 1 Freebets -->
+      <!-- 1 Radar -->
       <div class="feature reveal" data-tone="red">
         <div class="feat-copy">
-          <span class="fnum">01 — FREEBETS OPTIMIZER</span>
-          <h3>Get the most out of every free bet</h3>
-          <p>Pick your bookmakers, enter your free-bet amount, and Dycers scans the board to surface the single best-value bet — ranked by expected return and confidence.</p>
-          <ul class="feat-list">
-            <li><span class="chk">✓</span> AI-estimated win probability on every pick</li>
-            <li><span class="chk">✓</span> Expected value in € so you know what it's worth</li>
-            <li><span class="chk">✓</span> "Top deal" and high-confidence flags at a glance</li>
-          </ul>
-        </div>
-        <div class="feat-visual">
-          <div class="fhalo"></div>
-          <div class="phone"><img src="/assets/screens/freebets.jpg" alt="Free-bet optimizer: pick bookmakers and free-bet amount"></div>
-        </div>
-      </div>
-
-      <!-- 2 Radar -->
-      <div class="feature reveal" data-tone="red">
-        <div class="feat-copy">
-          <span class="fnum">02 — ARBITRAGE RADAR</span>
+          <span class="fnum">01 — ARBITRAGE RADAR</span>
           <h3>Spot guaranteed-profit windows in real time</h3>
           <p>The radar continuously compares odds across bookmakers and flags matches where the combined margin drops near — or below — zero. Below 0% means a locked-in profit.</p>
           <ul class="feat-list">
@@ -349,7 +359,25 @@
         </div>
         <div class="feat-visual">
           <div class="fhalo"></div>
-          <div class="phone"><img src="/assets/screens/radar.jpg" alt="Arbitrage radar showing near-arbitrage matches"></div>
+          <div class="phone"><img src="/assets/screens/radar.jpg" alt="Arbitrage radar showing near-arbitrage World Cup matches with live margins" width="777" height="1600" loading="lazy" decoding="async"></div>
+        </div>
+      </div>
+
+      <!-- 2 Freebets -->
+      <div class="feature reveal" data-tone="red">
+        <div class="feat-copy">
+          <span class="fnum">02 — FREEBETS OPTIMIZER</span>
+          <h3>Get the most out of every free bet</h3>
+          <p>Pick your bookmakers, enter your free-bet amount, and Dycers scans the board to surface the single best-value bet — ranked by expected return and confidence.</p>
+          <ul class="feat-list">
+            <li><span class="chk">✓</span> AI-estimated win probability on every pick</li>
+            <li><span class="chk">✓</span> Expected value in € so you know what it's worth</li>
+            <li><span class="chk">✓</span> "Top deal" and high-confidence flags at a glance</li>
+          </ul>
+        </div>
+        <div class="feat-visual">
+          <div class="fhalo"></div>
+          <div class="phone"><img src="/assets/screens/freebets.jpg" alt="Free-bet optimizer: pick bookmakers and free-bet amount, get the top deal" width="777" height="1600" loading="lazy" decoding="async"></div>
         </div>
       </div>
 
@@ -360,14 +388,14 @@
           <h3>Track every open bet, catch every edge</h3>
           <p>Add your bets and Dycers follows them live — monitoring scores and odds so you never miss an arbitrage or hedging opportunity while a match is running.</p>
           <ul class="feat-list">
-            <li><span class="chk">✓</span> Real-time status on all your active bets</li>
+            <li><span class="chk">✓</span> Every active bet with stake, odds &amp; bookmaker</li>
             <li><span class="chk">✓</span> Automatic arbitrage detection as odds move</li>
-            <li><span class="chk">✓</span> Add a bet in seconds from any match</li>
+            <li><span class="chk">✓</span> Add a bet in seconds — search any team or league</li>
           </ul>
         </div>
         <div class="feat-visual">
           <div class="fhalo"></div>
-          <div class="phone"><img src="/assets/screens/tracking.jpg" alt="Live bet tracking screen"></div>
+          <div class="phone"><img src="/assets/screens/homescreen.jpg" alt="My active bets: live tracking of open bets with stake, odds and bookmaker" width="777" height="1600" loading="lazy" decoding="async"></div>
         </div>
       </div>
 
@@ -380,19 +408,19 @@
           <ul class="feat-list">
             <li><span class="chk">✓</span> Net profit &amp; win rate across all your bets</li>
             <li><span class="chk">✓</span> Every bet logged with odds, bookmaker &amp; result</li>
-            <li><span class="chk">✓</span> Win / loss breakdown by sport and league</li>
+            <li><span class="chk">✓</span> Final scores and per-bet profit at a glance</li>
           </ul>
         </div>
         <div class="feat-visual">
           <div class="fhalo"></div>
-          <div class="phone"><img src="/assets/screens/history.jpg" alt="Betting history and net gain dashboard"></div>
+          <div class="phone"><img src="/assets/screens/history.jpg" alt="Betting history with net gain, wins and losses per bet" width="777" height="1600" loading="lazy" decoding="async"></div>
         </div>
       </div>
 
       <!-- STATS BAND -->
       <div class="band reveal">
         <div class="band-grid">
-          <div><div class="num r">4-in-1</div><div class="cap">Optimizer, radar, tracker &amp; stats</div></div>
+          <div><div class="num r">4-in-1</div><div class="cap">Radar, optimizer, tracker &amp; stats</div></div>
           <div><div class="num g">&lt; 0%</div><div class="cap">Margin = guaranteed profit</div></div>
           <div><div class="num">Real-time</div><div class="cap">Odds &amp; arbitrage monitoring</div></div>
           <div><div class="num">Free</div><div class="cap">To download on iOS &amp; Android</div></div>
@@ -410,11 +438,11 @@
       </div>
     </div>
     <div class="rail">
-      <div class="shot"><img src="/assets/screens/freebets.jpg" alt="Free-bet optimizer: choose bookmakers and stake"><span>Freebets Optimizer</span></div>
-      <div class="shot"><img src="/assets/screens/radar.jpg" alt="Arbitrage radar"><span>Arbitrage Radar</span></div>
-      <div class="shot"><img src="/assets/screens/add-bet.jpg" alt="Choose a match"><span>Add a bet</span></div>
-      <div class="shot"><img src="/assets/screens/tracking.jpg" alt="Active bets tracking"><span>Live tracking</span></div>
-      <div class="shot"><img src="/assets/screens/history.jpg" alt="History and net gain"><span>Stats &amp; History</span></div>
+      <div class="shot"><div class="shot-frame"><img src="/assets/screens/radar.jpg" alt="Arbitrage radar with live margins" width="777" height="1600" loading="lazy" decoding="async"></div><span>Arbitrage Radar</span></div>
+      <div class="shot"><div class="shot-frame"><img src="/assets/screens/freebets.jpg" alt="Free-bet optimizer: choose bookmakers and stake" width="777" height="1600" loading="lazy" decoding="async"></div><span>Freebets Optimizer</span></div>
+      <div class="shot"><div class="shot-frame"><img src="/assets/screens/homescreen.jpg" alt="Active bets tracked live" width="777" height="1600" loading="lazy" decoding="async"></div><span>Live tracking</span></div>
+      <div class="shot"><div class="shot-frame"><img src="/assets/screens/choose-bet.jpg" alt="Choose a match: search teams and leagues with live odds" width="777" height="1600" loading="lazy" decoding="async"></div><span>Add a bet</span></div>
+      <div class="shot"><div class="shot-frame"><img src="/assets/screens/history.jpg" alt="History and net gain dashboard" width="777" height="1600" loading="lazy" decoding="async"></div><span>Stats &amp; History</span></div>
     </div>
   </section>
 
@@ -424,7 +452,7 @@
       <div class="cta-card reveal">
         <div class="cglow"></div>
         <h2>Your edge is one download away.</h2>
-        <p>Join the bettors using Dycers to optimize free bets, catch arbitrage and finally know their numbers.</p>
+        <p>Join the bettors using Dycers to catch arbitrage, optimize free bets and finally know their numbers.</p>
         <div class="badges">
           <a class="store" href="https://apps.apple.com/fr/app/dycers/id6773751232?l=en-GB" target="_blank" rel="noopener">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.417 2.2-1.25 3.02-.9.9-1.99 1.42-3.03 1.34-.13-1.09.42-2.24 1.2-3.02.86-.86 2.3-1.5 3.08-1.34zM20.5 17.02c-.55 1.27-.82 1.84-1.53 2.96-.99 1.57-2.39 3.52-4.12 3.53-1.54.02-1.93-.99-4.02-.98-2.08.01-2.52.99-4.06.97-1.73-.02-3.06-1.78-4.05-3.35C-.34 15.9-.63 10.6 1.4 7.85c1.05-1.44 2.71-2.35 4.28-2.35 1.6 0 2.6.99 3.92.99 1.28 0 2.06-.99 3.91-.99 1.4 0 2.88.76 3.93 2.08-3.45 1.89-2.89 6.8.06 7.44z"/></svg>
@@ -445,8 +473,8 @@
     <div class="wrap">
       <div class="foot-grid">
         <div class="foot-brand">
-          <a href="#top" class="brand"><img src="/assets/logo.png" alt="Dycers logo">Dycers</a>
-          <p>The bettor's edge — free-bet optimizer, arbitrage radar, live tracking and stats, in one app.</p>
+          <a href="#top" class="brand"><img src="/assets/logo.png" alt="Dycers logo" width="34" height="34">Dycers</a>
+          <p>The bettor's edge — arbitrage radar, free-bet optimizer, live tracking and stats, in one app.</p>
         </div>
         <div class="foot-cols">
           <div class="foot-col">
