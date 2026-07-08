@@ -158,8 +158,8 @@
     .float-tag .v{font-weight:700;font-size:16px}
     .float-tag.green .v{color:var(--green)}
     .float-tag.red .v{color:var(--red)}
-    .ft-1{top:64px;left:-26px}
-    .ft-2{bottom:96px;right:-30px}
+    .ft-1{top:64px;left:-64px}
+    .ft-2{bottom:96px;right:-68px}
     @media(max-width:920px){
       .hero-grid{grid-template-columns:1fr;gap:12px}
       .hero{padding:52px 0 20px;text-align:center}
@@ -308,8 +308,7 @@
 
         <div class="trust">
           <span><b>Free</b> to download</span><span class="dot"></span>
-          <span>iOS &amp; Android</span><span class="dot"></span>
-          <span>No account needed to start</span>
+          <span>iOS &amp; Android</span>
         </div>
       </div>
 
@@ -511,6 +510,24 @@
   </footer>
 
   <script>
+    // If the URL carries a stale in-page hash (e.g. /#download after sharing
+    // or reloading), drop it and start at the top instead of jumping down.
+    if (location.hash) {
+      history.replaceState(null, '', location.pathname + location.search);
+      document.documentElement.style.scrollBehavior = 'auto';
+      window.scrollTo(0, 0);
+      document.documentElement.style.scrollBehavior = '';
+    }
+    // Smooth-scroll in-page links without writing the hash into the URL.
+    document.querySelectorAll('a[href^="#"]').forEach(function(a){
+      a.addEventListener('click', function(ev){
+        ev.preventDefault();
+        var el = document.getElementById(a.getAttribute('href').slice(1));
+        if (el) { el.scrollIntoView({behavior:'smooth'}); }
+        else { window.scrollTo({top:0, behavior:'smooth'}); }
+      });
+    });
+
     document.getElementById('yr').textContent = new Date().getFullYear();
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
