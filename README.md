@@ -18,6 +18,8 @@ The site leads with existing pre-match arbitrage opportunities: find an opportun
 
 The older `homescreen.jpg`, `choose-bet.jpg` and `history.jpg` remain available but are no longer used on the landing page. `assets/logo.png` remains the favicon/app icon.
 
+The landing page references content-hashed copies of the five displayed captures (for example, `radar-9ba3bd30c414.jpg`). Whenever a capture changes, create a new filename based on its SHA-256 hash and update both HTML and gallery data. This prevents browsers from reusing an older UI screenshot cached under the same URL. Keep previous assets available for visitors with cached HTML.
+
 ## Verification
 
 Local browser checks passed at 320, 390, 768, 1024 and 1440px: no horizontal page overflow, all images decoded, screenshot tabs and arrow/Home/End keyboard controls worked, FAQs expanded, download anchors reached their section, and reduced-motion preferences were respected. App Store, Google Play and legal destinations were compared with the previous page. No production deployment was performed by these checks.
