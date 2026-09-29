@@ -1,12 +1,30 @@
 # Dycers Site
 
-Static GitHub Pages site for `www.dycers.com`.
+Static GitHub Pages site for `www.dycers.com`. Open `index.html` through a local HTTP server; no build step, package installation or external fonts are required.
 
-- `index.html` — marketing landing page (single self-contained file: inline CSS/JS, no build step). Links to the App Store, Google Play and the legal center at `legal.dycers.com`.
-- `assets/logo.png` — app icon, used as the site logo and favicon.
-- `assets/screens/` — in-app screenshots used across the page (all normalized to 777×1600): `radar.jpg`, `freebets.jpg`, `homescreen.jpg`, `choose-bet.jpg`, `history.jpg`.
+```sh
+python3 -m http.server 8085
+```
 
-The root `app-ads.txt` file is used by Google AdMob app validation:
+## Product focus
+
+The site leads with existing pre-match arbitrage opportunities: find an opportunity in Radar, calculate each stake in Prepare, place the bets with the bookmakers, and follow the saved bets. Compare, Freebets, live tracking and History remain supporting features. The visual palette matches the app, including signature red `#ff1a1a` and mint profit highlights.
+
+`index.html` contains the page, responsive CSS, keyboard-accessible screenshot tabs, native FAQ disclosures and SEO metadata. App Store, Google Play and existing legal-center destinations are preserved. Contact uses the app's support email.
+
+## Screenshots
+
+`assets/screens/radar.jpg`, `prepare.jpg`, `compare.jpg`, `freebets.jpg`, `my-bets.jpg`, `insights.jpg` and `upcoming.jpg` are 780×1688 captures of the updated app's actual React components. They were rendered using React Native Web with illustrative match/account data and the real UI calculations and assets. They are **not physical-iPhone screenshots** or current odds; the page identifies the data as illustrative. No customer data or real ad clicks were used. `insights.jpg` and `upcoming.jpg` are included as additional screenshots for future content.
+
+The older `homescreen.jpg`, `choose-bet.jpg` and `history.jpg` remain available but are no longer used on the landing page. `assets/logo.png` remains the favicon/app icon.
+
+## Verification
+
+Local browser checks passed at 320, 390, 768, 1024 and 1440px: no horizontal page overflow, all images decoded, screenshot tabs and arrow/Home/End keyboard controls worked, FAQs expanded, download anchors reached their section, and reduced-motion preferences were respected. App Store, Google Play and legal destinations were compared with the previous page. No production deployment was performed by these checks.
+
+## Hosting files
+
+Keep `CNAME`, `.nojekyll` and `app-ads.txt` intact. Google AdMob uses the root `app-ads.txt` for app validation:
 
 ```txt
 google.com, pub-2841348104860357, DIRECT, f08c47fec0942fa0
